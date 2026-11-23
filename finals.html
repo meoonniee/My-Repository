@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plaridel, Bulacan — Heritage &amp; Nature Guide</title>
+  <style>
+    /* Page basics */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f5f7f6;
+      color: #222222;
+    }
+
+    section {
+      padding: 50px 20px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      text-align: center;
+      color: #1b5e4a;
+      margin-bottom: 8px;
+    }
+
+    .center-text {
+      text-align: center;
+      color: #555555;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #d97706;
+      color: white;
+      padding: 10px 18px;
+      text-decoration: none;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* 1. Sticky Navbar & Hero */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background-color: white;
+      border-bottom: 1px solid #dddddd;
+      padding: 12px 20px;
+      z-index: 100;
+    }
+
+    .nav-row {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      font-size: 18px;
+      font-weight: bold;
+      color: #1b5e4a;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 16px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #222222;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .nav-links a:hover {
+      color: #1b5e4a;
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 20px;
+      background: white;
+      border: 1px solid #cccccc;
+      padding: 4px 8px;
+      cursor: pointer;
+    }
+
+    .hero {
+      background-color: #1b5e4a;
+      color: white;
+      padding: 90px 20px;
+      text-align: left;
+    }
+
+    .hero-box {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 17px;
+      margin-bottom: 20px;
+      max-width: 600px;
+    }
+
+    /* Simple card rows using Flexbox */
+    .card-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .stat-card {
+      background-color: white;
+      border: 1px solid #dddddd;
+      border-radius: 6px;
+      padding: 16px;
+      width: 210px;
+    }
+
+    .stat-card small {
+      color: #666666;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    /* Attractions */
+    .filter-box {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .filter-btn {
+      padding: 7px 14px;
+      margin: 3px;
+      border: 1px solid #1b5e4a;
+      background-color: white;
+      color: #1b5e4a;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .spot-card {
+      background-color: white;
+      border: 1px solid #dddddd;
+      border-radius: 6px;
+      width: 280px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .spot-card:hover {
+      border-color: #1b5e4a;
+    }
+
+    .spot-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .spot-info {
+      padding: 14px;
+    }
+
+    .badge {
+      background-color: #dcfce7;
+      color: #166534;
+      font-size: 12px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .loc {
+      color: #666666;
+      font-size: 13px;
+      margin: 6px 0;
+    }
+
+    .click-hint {
+      color: #1b5e4a;
+      font-size: 12px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    /* Popup box when a spot is clicked */
+    .modal-bg {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      box-sizing: border-box;
+      z-index: 200;
+    }
+
+    .modal-box {
+      background-color: white;
+      max-width: 480px;
+      margin: 90px auto;
+      padding: 22px;
+      border-radius: 8px;
+      border-top: 5px solid #1b5e4a;
+    }
+
+    .modal-box h3 {
+      margin-top: 0;
+      color: #1b5e4a;
+    }
+
+    /* Tips cards */
+    .info-card {
+      background-color: white;
+      border: 1px solid #dddddd;
+      border-radius: 6px;
+      padding: 16px;
+      width: 280px;
+    }
+
+    /* Itinerary */
+    .tab-box {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      padding: 8px 16px;
+      margin: 0 4px;
+      border: 1px solid #bbbbbb;
+      background-color: white;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .timeline-box {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .time-step {
+      background-color: white;
+      border-left: 4px solid #1b5e4a;
+      padding: 12px 16px;
+      margin-bottom: 12px;
+    }
+
+    #twoDayItinerary {
+      display: none;
+    }
+
+    /* Map */
+    .map-box {
+      margin-top: 24px;
+      border: 1px solid #dddddd;
+    }
+
+    .map-box iframe {
+      width: 100%;
+      height: 300px;
+      border: 0;
+      display: block;
+    }
+
+    /* Footer & Form */
+    footer {
+      background-color: #143d30;
+      color: white;
+      padding: 40px 20px 20px 20px;
+    }
+
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .footer-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .form-box {
+      width: 340px;
+      max-width: 100%;
+    }
+
+    .form-box input,
+    .form-box textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      border: none;
+      box-sizing: border-box;
+    }
+
+    #formMessage {
+      color: #fde68a;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #2d5c4d;
+      padding-top: 14px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+
+    .footer-bottom a {
+      color: #fde68a;
+      text-decoration: none;
+    }
+
+    /* Phone screen styles */
+    @media (max-width: 700px) {
+      .hamburger {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        padding-top: 12px;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-row {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+
+  <!-- SECTION 1: STICKY NAVBAR & HERO -->
+  <div class="navbar">
+    <div class="nav-row">
+      <a href="#top" class="brand" onclick="goToSection(event, 'top')">Plaridel, Bulacan</a>
+      <button class="hamburger" onclick="toggleMenu()">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#overview" onclick="goToSection(event, 'overview')">Overview</a></li>
+        <li><a href="#spots" onclick="goToSection(event, 'spots')">Highlights</a></li>
+        <li><a href="#itinerary" onclick="goToSection(event, 'itinerary')">Itinerary</a></li>
+        <li><a href="#tips" onclick="goToSection(event, 'tips')">Tips</a></li>
+        <li><a href="#plan" onclick="goToSection(event, 'plan')">Plan</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-box">
+      <h1>Discover Plaridel, Bulacan: Heritage &amp; Nature</h1>
+      <p>A simple local travel guide to historic landmarks, old town roots, and breezy river views.</p>
+      <a href="#spots" class="btn" onclick="goToSection(event, 'spots')">Explore Guide</a>
+    </div>
+  </div>
+
+  <!-- SECTION 2: DESTINATION OVERVIEW & QUICK FACTS -->
+  <section id="overview">
+    <h2>Destination Overview</h2>
+    <p class="center-text">Plaridel (formerly Quingua) in the province of Bulacan</p>
+    <p class="center-text">
+      Plaridel is a peaceful municipality in Bulacan that is easy to reach from Metro Manila. It is ideal for a day trip or weekend walk centered on centuries-old local heritage and relaxing riverside scenery.
+    </p>
+
+    <div class="card-row">
+      <div class="stat-card">
+        <small>Best Time to Visit</small>
+        <strong>Dec – Feb</strong>
+      </div>
+      <div class="stat-card">
+        <small>Average Daily Budget</small>
+        <strong>₱500 – ₱1,000</strong>
+      </div>
+      <div class="stat-card">
+        <small>Travel Time from Manila</small>
+        <strong>1 to 1.5 hours</strong>
+      </div>
+      <div class="stat-card">
+        <small>Main Vibe</small>
+        <strong>Heritage &amp; Nature</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: TOP ATTRACTIONS (HERITAGE & NATURE ONLY) -->
+  <section id="spots">
+    <h2>Top Spots to Visit</h2>
+    <p class="center-text">Filter spots by Heritage or Nature — click any card for more details</p>
+
+    <div class="filter-box">
+      <button class="filter-btn" onclick="filterCards('All')">All</button>
+      <button class="filter-btn" onclick="filterCards('Heritage')">Heritage</button>
+      <button class="filter-btn" onclick="filterCards('Nature')">Nature</button>
+    </div>
+
+    <div class="card-row">
+      <div class="spot-card" data-category="Heritage" onclick="openSpotDetails('Plaridel Church (St. James the Apostle Parish)', 'Poblacion, Plaridel', 'Built during the Spanish colonial period, this historic church stands at the center of old Quingua. It features classic stone architecture, a peaceful churchyard, and is a starting point for learning about Plaridel history.')">
+        <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/JC_Plaridel_Church_19.JPG/1920px-JC_Plaridel_Church_19.JPG?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail" alt="Plaridel Church">
+        <div class="spot-info">
+          <span class="badge">Heritage</span>
+          <h3>Plaridel Church</h3>
+          <p class="loc">Poblacion, Plaridel</p>
+          <p>Historic parish church (Quingua Church) reflecting centuries of town history and faith.</p>
+          <p class="click-hint">Click for more details →</p>
+        </div>
+      </div>
+
+      <div class="spot-card" data-category="Heritage" onclick="openSpotDetails('Simborio Chapel Area', 'Quingua Area, Plaridel', 'Known locally as Simborio, this small dome-roofed heritage structure dates back to the Spanish era. Visitors drop by to see its unique brick design and quiet surrounding grounds.')">
+        <img src="https://www.beautyofthephilippines.com/wp-content/uploads/2016/02/Simborio-Plaridel-Bulacan-20-Group-0-Simboro-Plaridel-Bulacan-DSC_0577-Feb-20-2016b-copy-768x1372.jpg" alt="Simborio Chapel">
+        <div class="spot-info">
+          <span class="badge">Heritage</span>
+          <h3>Simborio Chapel Area</h3>
+          <p class="loc">Quingua Area, Plaridel</p>
+          <p>A quiet historical landmark tied to Plaridel's early Quingua roots.</p>
+          <p class="click-hint">Click for more details →</p>
+        </div>
+      </div>
+
+      <div class="spot-card" data-category="Nature" onclick="openSpotDetails('Angat River Corridor', 'Riverside, Plaridel', 'The Angat River winds along Plaridel and offers cool breezes and open water views. Early morning and late afternoon are the best times to visit for photography and a relaxing walk.')">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIaWDsC6sTu57BoXusLpH_jQEq5Rkj0p3pVX_PNUhBZkIybhmVShDQkS3V&s=10" alt="Angat River">
+        <div class="spot-info">
+          <span class="badge">Nature</span>
+          <h3>Angat River Corridor</h3>
+          <p class="loc">Riverside, Plaridel</p>
+          <p>Peaceful riverside views and fresh morning air away from busy streets.</p>
+          <p class="click-hint">Click for more details →</p>
+        </div>
+      </div>
+
+      <div class="spot-card" data-category="Nature" onclick="openSpotDetails('Outskirt Greenery & Farmlands', 'Outer Barangays, Plaridel', 'Beyond the town center, Plaridel has wide rice fields and quiet rural roads. It is a favorite route for local cyclists and morning walkers looking for greenery and fresh air.')">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmiIbhSxPuzp9fCayQvv5egkUaeoJ1x6NL-Kwt6z5muEKJT-o_nyWFSts&s=10" alt="Green fields in Plaridel">
+        <div class="spot-info">
+          <span class="badge">Nature</span>
+          <h3>Outskirt Greenery &amp; Farmlands</h3>
+          <p class="loc">Outer Barangays, Plaridel</p>
+          <p>Open skies and quiet provincial roads great for morning walks or cycling.</p>
+          <p class="click-hint">Click for more details →</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POPUP DETAILS BOX FOR THE 4 TOP SPOTS -->
+  <div class="modal-bg" id="spotModal" onclick="closeSpotDetails()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <h3 id="modalTitle">Spot Name</h3>
+      <p class="loc" id="modalLocation">Location</p>
+      <p id="modalDescription">Details go here.</p>
+      <br>
+      <button class="btn" onclick="closeSpotDetails()">Close</button>
+    </div>
+  </div>
+
+  <!-- SECTION 4: SAMPLE ITINERARY -->
+  <section id="itinerary">
+    <h2>Sample Itinerary</h2>
+    <p class="center-text">Choose a 1-day trip or a 2-day weekend</p>
+
+    <div class="tab-box">
+      <button class="tab-btn" onclick="showOneDay()">1-Day Express</button>
+      <button class="tab-btn" onclick="showTwoDay()">Weekend (2-Day)</button>
+    </div>
+
+    <div class="timeline-box">
+      <div id="oneDayItinerary">
+        <div class="time-step">
+          <h3>Morning</h3>
+          <p>Visit Plaridel Church and Simborio Chapel while the weather is cool.</p>
+        </div>
+        <div class="time-step">
+          <h3>Afternoon</h3>
+          <p>Take a slow stroll around the old town plaza and rest in the shade.</p>
+        </div>
+        <div class="time-step">
+          <h3>Evening</h3>
+          <p>Enjoy sunset views near the Angat River area before heading home.</p>
+        </div>
+      </div>
+
+      <div id="twoDayItinerary">
+        <div class="time-step">
+          <h3>Day 1: Plaridel Heritage Walk</h3>
+          <p>Explore Plaridel Church, Simborio Chapel, and nearby historical markers around Poblacion.</p>
+        </div>
+        <div class="time-step">
+          <h3>Day 2: Nature &amp; Neighboring Towns</h3>
+          <p>Spend a quiet morning by the riverside and green outskirts, then visit nearby Malolos or Bustos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: TRAVEL TIPS, MAP & FOOTER -->
+  <section id="tips">
+    <h2>Travel Tips</h2>
+    <p class="center-text">Helpful reminders for your trip</p>
+
+    <div class="card-row">
+      <div class="info-card">
+        <h3>How to Get There</h3>
+        <p>Ride a bus or van bound for Bulacan, or drive north via NLEX.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Local Transport</h3>
+        <p>Use tricycles or jeepneys around town. Bring coins and small bills.</p>
+      </div>
+
+      <div class="info-card">
+        <h3>Packing &amp; Etiquette</h3>
+        <p>Wear comfy shoes, dress modestly in churches, and ask before taking photos of people.</p>
+      </div>
+    </div>
+
+    <div class="map-box">
+      <iframe
+        title="Plaridel Bulacan Map"
+        src="https://www.google.com/maps?q=Plaridel,Bulacan&output=embed">
+      </iframe>
+    </div>
+  </section>
+
+  <footer id="plan">
+    <div class="footer-inner">
+      <div class="footer-row">
+        <div class="form-box">
+          <h3>Ask a Local / Request a Guide</h3>
+          <p>Send a quick message if you need help planning.</p>
+          <form onsubmit="submitForm(event)">
+            <input type="text" id="nameField" placeholder="Your name" required>
+            <input type="email" id="emailField" placeholder="Your email" required>
+            <textarea id="noteField" rows="3" placeholder="Your question or trip notes" required></textarea>
+            <button type="submit" class="btn">Send Request</button>
+            <p id="formMessage"></p>
+          </form>
+        </div>
+
+        <div>
+          <h3>Plaridel, Bulacan Guide</h3>
+          <p>Province of Bulacan, Philippines</p>
+          <p>
+            <a href="#top" onclick="goToSection(event, 'top')" style="color: #fde68a; margin-right: 10px;">Facebook</a>
+            <a href="#top" onclick="goToSection(event, 'top')" style="color: #fde68a; margin-right: 10px;">Instagram</a>
+            <a href="#top" onclick="goToSection(event, 'top')" style="color: #fde68a;">TikTok</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>School Final Project — Plaridel, Bulacan</span>
+        <a href="#top" onclick="goToSection(event, 'top')">↑ Back to Top</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smoothly scroll to any section when a nav link or button is clicked
+    function goToSection(event, sectionId) {
+      event.preventDefault(); // Stops the sudden default jump
+      closeMenu(); // Closes the mobile menu if it was open
+
+      var targetSection = document.getElementById(sectionId);
+      var navbarHeight = 50; // Leaves space so the sticky navbar doesn't cover the title
+      var position = targetSection.offsetTop - navbarHeight;
+
+      window.scrollTo({
+        top: position,
+        behavior: "smooth"
+      });
+    }
+
+    // Show or hide menu on mobile
+    function toggleMenu() {
+      var menu = document.getElementById("navLinks");
+      if (menu.className === "nav-links") {
+        menu.className = "nav-links open";
+      } else {
+        menu.className = "nav-links";
+      }
+    }
+
+    // Close mobile menu when a link is clicked
+    function closeMenu() {
+      var menu = document.getElementById("navLinks");
+      menu.className = "nav-links";
+    }
+
+    // Filter attraction cards by category (All, Heritage, Nature)
+    function filterCards(selectedCategory) {
+      var cards = document.getElementsByClassName("spot-card");
+
+      for (var i = 0; i < cards.length; i++) {
+        var cardCategory = cards[i].getAttribute("data-category");
+
+        if (selectedCategory === "All" || cardCategory === selectedCategory) {
+          cards[i].style.display = "block";
+        } else {
+          cards[i].style.display = "none";
+        }
+      }
+    }
+
+    // Open popup box with details about the clicked spot
+    function openSpotDetails(title, location, description) {
+      document.getElementById("modalTitle").innerText = title;
+      document.getElementById("modalLocation").innerText = location;
+      document.getElementById("modalDescription").innerText = description;
+      document.getElementById("spotModal").style.display = "block";
+    }
+
+    // Close popup box
+    function closeSpotDetails() {
+      document.getElementById("spotModal").style.display = "none";
+    }
+
+    // Show 1-day itinerary and hide 2-day itinerary
+    function showOneDay() {
+      document.getElementById("oneDayItinerary").style.display = "block";
+      document.getElementById("twoDayItinerary").style.display = "none";
+    }
+
+    // Show 2-day itinerary and hide 1-day itinerary
+    function showTwoDay() {
+      document.getElementById("oneDayItinerary").style.display = "none";
+      document.getElementById("twoDayItinerary").style.display = "block";
+    }
+
+    // Show confirmation message when form is submitted
+    function submitForm(event) {
+      event.preventDefault();
+      var name = document.getElementById("nameField").value;
+      document.getElementById("formMessage").innerText = "Thanks, " + name + "! Your request has been sent.";
+      event.target.reset();
+    }
+  </script>
+</body>
+</html>
